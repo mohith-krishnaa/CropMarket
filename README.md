@@ -4,6 +4,8 @@ A browser-based farming decision-support application focused on crop prices, mar
 
 **Live Demo:** https://cropmarketapp.netlify.app/
 
+![CropMarket dashboard and onboarding](./assets/cropmarket_readme_hero.jpg)
+
 > **Note:** Market prices, weather information and agricultural guidance can change. Verify important information against relevant official sources before making real-world decisions.
 
 ## Overview
