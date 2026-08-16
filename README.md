@@ -14,7 +14,7 @@ CropMarket is designed around a simple question:
 
 The interface combines market-oriented calculations with contextual information such as prices, weather, crop trends, nearby markets and storage considerations.
 
-The current repository is unusually small: the main application is contained in `cropmarket.jsx`. fileciteturn27file0
+The current repository is unusually small: the main application is contained in `cropmarket.jsx`.
 
 ## Current application capabilities
 
@@ -63,7 +63,7 @@ Based on the current source:
 - Lucide React
 - Browser location/voice capabilities where supported
 
-The repository currently does **not** contain a conventional `package.json`, build configuration, or `.env.example` alongside the JSX source. fileciteturn27file0
+The repository currently does **not** contain a conventional `package.json`, build configuration, or `.env.example` alongside the JSX source.
 
 ## Running the project
 
