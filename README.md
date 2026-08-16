@@ -1,156 +1,111 @@
-# 🌾 CropMarket
+# CropMarket
 
-&gt; Smart farming decisions powered by real-time government data — now with voice support
+A browser-based farming decision-support prototype focused on crop prices, market comparison, weather context, farm calculations and multilingual/voice-friendly interaction.
 
-CropMarket is a voice-enabled, multilingual web application built for Indian farmers. It integrates official government agricultural market data (Agmarknet/eNAM), real-time weather from OpenWeatherMap, curated government farming news, and full voice input/output support — so farmers can access critical information hands-free while working in the fields.
+**Live demo:** https://cropmarketapp.netlify.app/
 
-## 🚀 Live Demo
+> **Status:** Prototype / single-file React application. Verify external data integrations and production deployment before treating displayed information as authoritative.
 
-**[https://cropmarketapp.netlify.app/](https://cropmarketapp.netlify.app/)**
+## Overview
 
----
+CropMarket is designed around a simple question:
 
-## ✨ Features
+> **Where and when should I sell my crop?**
 
-### 📡 Agmarknet / eNAM Market Data
-- Real-time crop prices from government-regulated mandis
-- Coverage for **all Indian states**
-- Daily arrivals, price trends, and commodity-wise listings
-- Direct integration with Government of India agricultural data APIs
+The interface combines market-oriented calculations with contextual information such as prices, weather, crop trends, nearby markets and storage considerations.
 
-### 🌦️ OpenWeatherMap Integration
-- Live weather forecasts and hyper-local conditions
-- Rainfall predictions, temperature trends, and humidity alerts
-- Extreme weather warnings (heatwaves, storms, floods)
-- 5-day forecast for farm planning
+The current repository is unusually small: the main application is contained in `cropmarket.jsx`. fileciteturn27file0
 
-### 📰 Government Farming News
-- Curated news from official government agriculture portals
-- Updates on PM-KISAN, crop insurance, MSP announcements, and new schemes
-- State-wise and national agricultural policy updates
+## Current application capabilities
 
-### 🎙️ Voice Input (Speech Recognition)
-- Farmers can **speak commands and queries** instead of typing
-- Supports natural language queries like:
-  - *"What is the price of wheat in Punjab today?"*
-  - *"Show nearby markets"*
-  - *"What's the weather tomorrow?"*
-- Powered by Web Speech API
+The source implements a multilingual interface with English, Hindi and additional language strings, plus farmer-oriented views and tools including:
 
-### 🔊 Voice Output (Text-to-Speech)
-- All content can be **read aloud** — prices, weather, news, market details
-- Farmers can **listen while working** in fields or driving
-- Multilingual TTS support (Hindi, Telugu, Tamil, English)
-- Adjustable speech rate and volume
+- Home/dashboard experience
+- Market views and crop search
+- Price/trend presentation
+- Watchlist and price-alert UI
+- Weather-related information and harvest-risk messaging
+- Nearby-market/location workflows
+- Trip-cost and profitability calculations
+- Crop calendar and storage-related tools
+- Unit conversion/reference information
+- Voice input and text-to-speech UI hooks
+- Responsive, browser-oriented interaction
 
-### 💰 Fare Calculation
-- Estimate transportation costs to carry produce to mandis
-- Compare fares across multiple nearby markets
-- Factor in distance, vehicle type, and fuel costs
+The repository should be treated as a **frontend prototype** rather than a verified agricultural data platform until each external data source is confirmed in the current implementation.
 
-### 📍 Nearby Markets
-- GPS-based discovery of nearby Agmarknet-registered mandis
-- Distance, directions, and live commodity prices for each market
-- Filter by crop type and active trading hours
+## Architecture
 
-### 🌱 Crop Life Cycle
-- Stage-by-stage guidance: sowing → growth → harvesting → post-harvest
-- Timely alerts for irrigation, fertilization, and pest control
-- Crop-specific best practices
+```text
+React UI
+   │
+   ├── Location / district selection
+   ├── Market & crop views
+   ├── Weather context
+   ├── Watchlist / alerts
+   ├── Trip calculator
+   ├── Crop tools
+   └── Voice / language UI
 
-### 🌍 Multilingual Interface
-| Code | Language | Voice Support |
-|------|----------|---------------|
-| EN   | English  | ✅ TTS + Voice Input |
-| HI   | Hindi    | ✅ TTS + Voice Input |
-| TE   | Telugu   | ✅ TTS + Voice Input |
-| TA   | Tamil    | ✅ TTS + Voice Input |
+Single application source
+        ↓
+     cropmarket.jsx
+```
 
----
+## Tech stack
 
-## 🛠️ Tech Stack
+Based on the current source:
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React / Modern JavaScript Framework |
-| Styling | Tailwind CSS / CSS Modules |
-| Market Data API | Agmarknet / eNAM (Government of India) |
-| Weather API | OpenWeatherMap API |
-| News Source | Government Agriculture Portals / RSS Feeds |
-| Voice (Input) | Web Speech API - SpeechRecognition |
-| Voice (Output) | Web Speech API - SpeechSynthesis |
-| Maps / Location | Geolocation API + Map Integration |
-| i18n | React-i18next with RTL support |
-| Deployment | Netlify (CI/CD + Global CDN) |
+- React
+- JavaScript / JSX
+- React hooks (`useState`, `useEffect`, `useRef`, `useCallback`)
+- Recharts
+- Lucide React
+- Browser location/voice capabilities where supported
 
----
+The repository currently does **not** contain a conventional `package.json`, build configuration, or `.env.example` alongside the JSX source. fileciteturn27file0
 
-## 📦 Installation
-# Clone the repository
-git clone https://github.com/yourusername/cropmarket.git
-# Navigate to project directory
-cd cropmarket
-# Install dependencies
-npm install
-# Set up environment variables
-cp .env.example .env
-# Start development server
-npm run
-🔧 Environment Variables
-# Agmarknet / eNAM Government API
-REACT_APP_AGMARKNET_API_KEY=your_agmarknet_key
-REACT_APP_ENAM_API_URL=https://enam.gov.in/web/
-# OpenWeatherMap
-REACT_APP_OPENWEATHER_API_KEY=your_openweather_api_key
-REACT_APP_OPENWEATHER_URL=https://api.openweathermap.org/data/2.5/
-# Government News / RSS Feeds
-REACT_APP_GOV_NEWS_RSS=https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&SectionId=1
-# Maps / Geolocation (for Nearby Markets)
-REACT_APP_MAPS_API_KEY=your_google_maps_or_mapbox_key
-# Optional: Custom TTS Engine (if not using browser default)
-REACT_APP_TTS_API_KEY=your_tts_service_key
+## Running the project
 
-## 🎙️ Voice Features Setup
-The app uses the Web Speech API for voice capabilities:
-Voice Input (SpeechRecognition)
-// Example: Activating voice search
-const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-recognition.lang = 'hi-IN'; // Hindi
-recognition.onresult = (event) => {
-  const transcript = event.results[0][0].transcript;
-  // Process farmer's spoken query
-};
-recognition.start();
-## Voice Output (SpeechSynthesis)
-// Example: Reading market prices aloud
-const utterance = new SpeechSynthesisUtterance("Wheat price in Punjab is ₹2,150 per quintal");
-utterance.lang = 'hi-IN';
-utterance.rate = 0.9; // Slightly slower for clarity
-speechSynthesis.speak(utterance);
+The repository currently contains the application source rather than a complete package-managed project. That means a generic `npm install` / `npm run build` instruction would be misleading.
 
-🚢 Deployment
-# Build for production
-npm run build
-# Deploy to Netlify
-netlify deploy --prod
+To turn this into a conventional runnable React project, the next engineering step is to add a package manifest and build setup (for example Vite), then define the required dependencies and scripts.
 
-🤝 Contributing
-We welcome contributions! Priority areas:
-More Languages: Marathi, Kannada, Bengali, Gujarati, Punjabi
-Offline Voice: Pre-recorded audio for low-connectivity areas
-AI Crop Doctor: Voice-based crop disease identification
-WhatsApp Integration: Share market prices via voice messages
+## Data accuracy
 
-📄 License
-MIT License —
+Agricultural prices, weather information, government schemes and market recommendations can change over time. A UI displaying a value does not by itself establish that the value is current or official.
 
-🙏 Acknowledgments
-Market data powered by Agmarknet & eNAM, Government of India
-Weather data by OpenWeatherMap
-News sourced from official government agriculture portals
-Built for Indian farmers who deserve technology that speaks their language.
+Before using CropMarket for real farming decisions, verify important prices, MSP values, weather warnings and government-scheme information against the relevant official sources.
 
-<p align="center">
-  🚜 Made with ❤️ for India's farming community 🌾<br>
-  <em>Because every farmer deserves to hear the price of their crop.</em>
-</p>
+## Security & privacy considerations
+
+Location and voice features can involve sensitive browser permissions. A production version should clearly explain:
+
+- Why location is requested
+- Whether location is stored
+- Whether voice/audio leaves the device
+- Which external APIs receive user data
+- How API keys are protected
+
+API keys should never be embedded in a public frontend when the provider requires secret credentials.
+
+## Roadmap
+
+- Convert the prototype into a standard React/Vite project
+- Separate UI, data, calculations and configuration into modules
+- Add automated tests for financial/market calculations
+- Add a documented data-source layer
+- Add proper environment-variable handling
+- Add loading/error/empty states for external data
+- Add source timestamps to market and weather information
+- Add accessibility testing
+- Add CI/build validation
+- Add an explicit privacy model for location and voice features
+
+## License
+
+See the repository for the applicable source-code license.
+
+## Author
+
+**Mohith Krishnaa** — [@mohith-krishnaa](https://github.com/mohith-krishnaa)
