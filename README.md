@@ -1,89 +1,125 @@
-# CropMarket
+# CropMarket 🌾
 
-A browser-based farming decision-support application focused on crop prices, market comparison, weather context, farm calculations and multilingual/voice-friendly interaction.
+> **Smart farming decisions for crops, markets, storage and trip economics.**
 
-**Live Demo:** https://cropmarketapp.netlify.app/
+CropMarket is a React + Vite decision-support prototype designed to help farmers compare market opportunities, understand price trends, estimate trip profitability, track crops, and access practical farming utilities.
 
-![CropMarket dashboard and onboarding](./cropmarket_readme_hero.jpg)
+> **Status:** Active prototype. Some market, weather and trend values are demonstration/fallback data and should not be treated as verified live mandi quotations.
 
-> **Note:** Market prices, weather information and agricultural guidance can change. Verify important information against relevant official sources before making real-world decisions.
+## ✨ Features
 
-## Overview
+- 🏠 **Farmer dashboard** — crop price snapshot, trend and decision guidance
+- 📍 **District-aware experience** — district selection and location detection flow
+- 🏪 **Market comparison** — nearby market cards and price comparisons
+- 📈 **7-day trend visualization** — deterministic demo trend generation for consistent UI output
+- 💰 **MSP comparison** — identifies whether a modal price is above, near or below MSP
+- 🌧️ **Harvest-risk advisory** — combines price/arrival conditions with weather-risk flags
+- ⭐ **Watchlist** — keep crops you want to monitor
+- 🔔 **Price-alert UI** — interface foundation for future threshold notifications
+- 🚜 **Trip calculator** — estimates fuel, labour, revenue, cost and net profit
+- 🧮 **Farm utilities** — unit conversion, storage guidance and crop calendar
+- 🌐 **Multilingual UI** — English and Hindi translations are included
+- 🎤 **Voice-search UI** — browser speech-recognition integration where supported
+- 📱 **Responsive UI** — designed for desktop and mobile layouts
 
-CropMarket is designed around a simple question:
+## 🧱 Architecture
 
-> **Where and when should I sell my crop?**
-
-The interface combines market-oriented calculations with contextual information such as prices, weather, crop trends, nearby markets and storage considerations.
-
-## Features
-
-- Home/dashboard experience
-- Market views and crop search
-- Price and trend presentation
-- Watchlist and price-alert UI
-- Weather-related information and harvest-risk messaging
-- Nearby-market/location workflows
-- Trip-cost and profitability calculations
-- Crop calendar and storage-related tools
-- Unit conversion/reference information
-- Voice input and text-to-speech UI hooks
-- Responsive browser interaction
-- Multilingual interface support
-
-## Architecture
+The original application had most of its logic in one large JSX file. The current refactor separates screens, data, utilities and presentation styling:
 
 ```text
-React UI
-   │
-   ├── Location / district selection
-   ├── Market & crop views
-   ├── Weather context
-   ├── Watchlist / alerts
-   ├── Trip calculator
-   ├── Crop tools
-   └── Voice / language UI
-
-Single application source
-        ↓
-     cropmarket.jsx
+src/
+├── components/
+│   ├── screens/
+│   │   ├── HomeScreen.jsx
+│   │   ├── MarketsScreen.jsx
+│   │   ├── Onboarding.jsx
+│   │   ├── TripScreen.jsx
+│   │   ├── WatchScreen.jsx
+│   │   ├── ToolsScreen.jsx
+│   │   └── LangDrop.jsx
+│   └── shared.jsx
+├── data/
+│   └── cropMarketData.js
+├── utils/
+│   ├── cropUtils.js
+│   ├── formatters.js
+│   ├── marketUtils.js
+│   └── tripUtils.js
+├── CropMarket.jsx
+├── CropMarket.css
+├── App.jsx
+└── main.jsx
 ```
 
-## Tech stack
+See [`docs/architecture.md`](docs/architecture.md) and [`docs/refactor-report.md`](docs/refactor-report.md) for details.
 
-- React
+## 🛠️ Tech Stack
+
+- React 19
+- Vite 7
 - JavaScript / JSX
-- React hooks
 - Recharts
 - Lucide React
-- Browser location/voice capabilities where supported
+- ESLint
+- GitHub Actions
 
-## Running locally
+## 🚀 Run locally
 
-The repository currently contains the application source rather than a conventional package-managed project. A generic `npm install` / `npm run build` instruction should therefore not be assumed without the corresponding package configuration.
+Requirements: Node.js 20+ recommended.
 
-For the quickest evaluation, use the live demo above.
+```bash
+npm ci
+npm run lint
+npm run build
+npm run dev
+```
 
-## Data accuracy
+Then open the local Vite URL shown in the terminal.
 
-Agricultural prices, weather information, government schemes and market recommendations can change over time. A displayed value does not by itself establish that the value is current or official.
+## 🧪 Testing
 
-Before using CropMarket for real farming decisions, verify important prices, MSP values, weather warnings and government-scheme information against the relevant official sources.
+The utility layer uses Node's built-in test runner, so no additional test framework is required:
 
-## Privacy considerations
+```bash
+npm test
+```
 
-Location and voice features can involve browser permissions. A production data layer should clearly document:
+## 🔐 Configuration
 
-- Why location is requested
-- Whether location is stored
-- Whether voice/audio leaves the device
-- Which external APIs receive user data
-- How API keys are protected
+There are currently no required secrets for the demo build.
 
-## License
+If a future live-data service needs credentials, use environment variables and never commit `.env` files. Start from [`.env.example`](.env.example).
 
-See the repository for the applicable source-code license.
+## 🤖 CI
 
-## Author
+GitHub Actions runs linting, unit tests and the production build on pushes and pull requests. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
-**Mohith Krishnaa** — [@mohith-krishnaa](https://github.com/mohith-krishnaa)
+## ⚠️ Data disclaimer
+
+The current prototype contains seeded/demo datasets and fallback market entries. A generated market name or price does **not** imply that it is a verified live market quotation.
+
+The next production step is a dedicated service/data layer for authenticated live sources, schema validation, caching, retries and explicit offline states.
+
+## 🗺️ Roadmap
+
+### Near term
+- [x] Split the monolithic application into feature modules
+- [x] Extract data and business utilities
+- [x] Add deterministic trend generation
+- [x] Add lint/build CI
+- [x] Add utility tests
+- [ ] Add live market-data service abstraction
+- [ ] Add API response validation
+- [ ] Add persistent watchlist storage
+- [ ] Implement real price alerts
+
+### Later
+- Historical price analytics
+- Offline-first caching
+- Local-language voice workflows
+- Farmer notification service
+- Crop/market personalization
+
+## 📄 License
+
+MIT License.
